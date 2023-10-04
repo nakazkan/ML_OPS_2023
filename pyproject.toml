@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "my-package"
+version = "1"
+description = "amazing description"
+authors = ["Niyaz Bureev"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+scikit-learn = "^1.3.1"
+pandas = "^2.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
