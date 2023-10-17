@@ -12,7 +12,8 @@ def main():
     X_train, X_test, y_train, y_test = train_test_split(
         iris.data, iris.target, random_state=42
     )
-    df = pd.DataFrame(X_test, y_test)
+    df_test = pd.DataFrame(X_test, y_test)
+    df_train = pd.DataFrame(X_train, y_train)
 
     clf = iris_classifier.IrisClassifier()
     clf.fit(X_train, y_train)
@@ -22,7 +23,8 @@ def main():
 
     clf.save_model("data/iris_model.pkl")
 
-    df.to_csv("data/test_data.csv")
+    df_test.to_csv("data/test.csv")
+    df_train.to_csv("data/train.csv")
 
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@ from iris import iris_classifier
 def main():
     clf = iris_classifier.IrisClassifier()
     clf = clf.load_model("data/iris_model.pkl")
-    df = pd.read_csv("data/test_data.csv")
+    df = pd.read_csv("data/test.csv")
     X_test = np.array(df)
     y_test = X_test[:, 0]
     X_test = X_test[:, 1:]
