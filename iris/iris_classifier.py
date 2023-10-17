@@ -5,8 +5,12 @@ from sklearn.ensemble import RandomForestClassifier
 
 
 class IrisClassifier:
-    def __init__(self):
-        self.clf = RandomForestClassifier(n_estimators=1, random_state=42)
+    def __init__(
+        self, n_estimators: int = 1, random_state: int = 42, max_depth: int = 10
+    ):
+        self.clf = RandomForestClassifier(
+            n_estimators=n_estimators, random_state=random_state, max_depth=max_depth
+        )
 
     def fit(self, data: np.ndarray, target: np.ndarray):
         self.clf.fit(data, target)
