@@ -1,5 +1,5 @@
+import dvc.api
 import hydra
-import numpy as np
 import pandas as pd
 from hydra.core.config_store import ConfigStore
 from sklearn.metrics import accuracy_score
@@ -13,14 +13,17 @@ cs.store(name="params", node=Params)
 
 @hydra.main(config_path="conf", config_name="config", version_base="1.3")
 def main(cfg: Params) -> None:
+    with dvc.api.open(
+        "data/test.csv", repo="https://github.com/nakazkan/ML_OPS_2023"
+    ) as f:
+        df = pd.read_csv(f)
     clf = iris_classifier.IrisClassifier(
-        cfg.model.seed, cfg.model.n_estimators, cfg.model.max_depth
+        cfg.model.random_state, cfg.model.n_estimators, cfg.model.max_depth
     )
     clf = clf.load_model(cfg.data.path + "iris_model.pkl")
-    df = pd.read_csv(cfg.data.path + "test.csv")
-    X_test = np.array(df)
-    y_test = X_test[:, 0]
-    X_test = X_test[:, 1:]
+
+    y_test = df[df.columns[0]]
+    X_test = df.drop(columns=[df.columns[0]])
 
     y_pred = clf.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
