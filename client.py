@@ -1,6 +1,6 @@
 from functools import lru_cache
+
 import numpy as np
-import sklearn
 from tritonclient.http import InferenceServerClient, InferInput, InferRequestedOutput
 from tritonclient.utils import np_to_triton_dtype
 
@@ -35,16 +35,15 @@ def call_triton_probs(data: np.ndarray):
     )
     input_data.set_data_from_numpy(text)
     query_response = triton_client.infer(
-        "onnx-model",
-        [input_data],
-        outputs=[InferRequestedOutput("probabilities")])
+        "onnx-model", [input_data], outputs=[InferRequestedOutput("probabilities")]
+    )
     probs = query_response.as_numpy("probabilities")[0]
     return probs
 
 
 def main():
 
-    data = [[0.0,0.0,0.0,0.0], [5.7, 2.8, 4.5, 1.3], [6.2, 3.0, 5.0, 2.0]]
+    data = [[0.0, 0.0, 0.0, 0.0], [5.7, 2.8, 4.5, 1.3], [6.2, 3.0, 5.0, 2.0]]
 
     for i in range(3):
         labels = call_triton_labels(data[i])
@@ -53,9 +52,10 @@ def main():
     for i in range(3):
         probs = call_triton_probs(data[i])
         arg_max = max(probs)
-        assert (arg_max > 0.9)
+        assert arg_max > 0.9
 
     print("All tests passed")
+
 
 if __name__ == "__main__":
     main()
