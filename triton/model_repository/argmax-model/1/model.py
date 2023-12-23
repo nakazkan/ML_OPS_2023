@@ -9,7 +9,9 @@ class TritonPythonModel:
     def execute(self, requests):
         responses = []
         for request in requests:
-            probs = pb_utils.get_input_tensor_by_name(request, "probabilities").as_numpy()
+            probs = pb_utils.get_input_tensor_by_name(
+                request, "probabilities"
+            ).as_numpy()
             labels = np.argmax(probs)
             output_labels = pb_utils.Tensor("labels", np.array(labels))
             inference_response = pb_utils.InferenceResponse(

@@ -6,7 +6,7 @@ input [
   {
     name: "X"
     data_type: TYPE_FP32
-    dims: [4] 
+    dims: [4]
   }
 ]
 output [
@@ -23,5 +23,3 @@ instance_group [
         kind: KIND_CPU
     }
 ]
-
-dynamic_batching: {max_queue_delay_microseconds: 10 }

@@ -5,7 +5,7 @@ input [
     {
         name: "X"
         data_type: TYPE_FP32
-        dims: [4] 
+        dims: [4]
     }
 ]
 
