@@ -2,7 +2,7 @@
 
 
 
-    ### Решаемая задача
+### Решаемая задача
 Классификация ирисов через sklearn - RandomForestClassifier.
 P.S. Почему не торч? Потому что на общажном интеренете для его установки для проверки poetry install в новой среде нужно ждать кучу времени. Если уж очень хочется, чтобы тут обучалась нейронка то можете в фит вставить код, который напишет какая-нибудь Chat-GPT(ну либо perplexity с copilot) на запрос "Write me python code that download MNIST dataset, train the model using PyTorch".
 
@@ -36,6 +36,7 @@ P.S. Почему не торч? Потому что на общажном ин�
 Будет измеряться следующим образом:
 perf_analyzer -m onnx-model -u localhost:8500 --concurrency-range 1:16 --shape X:1,4
 * До оптимизаций (лучшая версия из не стандартных):
+```
 Concurrency: 1, throughput: 2027.46 infer/sec, latency 492 usec
 Concurrency: 2, throughput: 3945.43 infer/sec, latency 506 usec
 Concurrency: 3, throughput: 5626.86 infer/sec, latency 532 usec
@@ -52,7 +53,9 @@ Concurrency: 13, throughput: 16100.2 infer/sec, latency 806 usec
 Concurrency: 14, throughput: 15977.6 infer/sec, latency 875 usec
 Concurrency: 15, throughput: 17347.3 infer/sec, latency 863 usec
 Concurrency: 16, throughput: 16540.2 infer/sec, latency 966 usec
+```
 * После оптимизаций(самая обычная):
+```
 Concurrency: 1, throughput: 2654.08 infer/sec, latency 376 usec
 Concurrency: 2, throughput: 5242.76 infer/sec, latency 380 usec
 Concurrency: 3, throughput: 8224.02 infer/sec, latency 364 usec
@@ -69,6 +72,7 @@ Concurrency: 13, throughput: 19425.3 infer/sec, latency 668 usec
 Concurrency: 14, throughput: 20567.6 infer/sec, latency 679 usec
 Concurrency: 15, throughput: 21360.3 infer/sec, latency 701 usec
 Concurrency: 16, throughput: 20463.5 infer/sec, latency 780 usec
+```
 
 ### Обьяснение выбора оптимизаций
 Были опробованы dynamic_batching {}, dynamic_batching: {max_queue_delay_microseconds: 10/100/1000/2000 },
