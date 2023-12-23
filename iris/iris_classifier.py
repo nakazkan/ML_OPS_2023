@@ -34,3 +34,6 @@ class IrisClassifier(RandomForestClassifier):
     def save_model(self, path):
         with open(path, "wb") as f:
             pickle.dump(self.clf, f)
+
+    def get_classifier(self) -> RandomForestClassifier:
+        return self.clf

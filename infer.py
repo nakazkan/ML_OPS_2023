@@ -13,10 +13,10 @@ cs.store(name="params", node=Params)
 
 @hydra.main(config_path="conf", config_name="config", version_base="1.3")
 def main(cfg: Params) -> None:
-    with dvc.api.open(
-        "data/test.csv", repo="https://github.com/nakazkan/ML_OPS_2023"
-    ) as f:
+
+    with dvc.api.open("data/test.csv") as f:
         df = pd.read_csv(f)
+
     clf = iris_classifier.IrisClassifier(
         cfg.model.random_state, cfg.model.n_estimators, cfg.model.max_depth
     )

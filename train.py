@@ -58,9 +58,7 @@ def save_plots(clf, X_val, y_val, y_train, data_path, n_classes=3):
 
 @hydra.main(config_path="conf", config_name="config", version_base="1.3")
 def main(cfg: Params) -> None:
-    with dvc.api.open(
-        "data/train.csv", repo="https://github.com/nakazkan/ML_OPS_2023"
-    ) as f:
+    with dvc.api.open("data/train.csv") as f:
         df = pd.read_csv(f)
 
     target = df[df.columns[0]]
@@ -76,7 +74,7 @@ def main(cfg: Params) -> None:
     clf.save_model(cfg.data.path + "iris_model.pkl")
 
     onnx_model = convert_sklearn(
-        clf.clf, initial_types=[("input", FloatTensorType(X_val.shape))]
+        clf.get_classifier(), initial_types=[("input", FloatTensorType(X_val.shape))]
     )
 
     y_pred = clf.predict(X_val)
@@ -87,7 +85,7 @@ def main(cfg: Params) -> None:
     plot_paths = save_plots(clf, X_val, y_val, y_train, cfg.data.path, n_classes=3)
 
     mlflow.set_tracking_uri(uri=cfg.mlflow.uri)
-    mlflow.set_experiment("Siple iris dataset experiment")
+    mlflow.set_experiment("Simple iris dataset experiment")
 
     with mlflow.start_run():
         mlflow.log_params(cfg.model)

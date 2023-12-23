@@ -160,6 +160,6 @@ cython_debug/
 #.idea/
 
 /data/out.csv
-/data/*.pkl
+/data/iris_model.pkl
 outputs*
 ml*
